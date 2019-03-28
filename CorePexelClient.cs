@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using CorePexel.Models;
@@ -11,6 +12,7 @@ namespace CorePexel
    {
       private const string BaseUrl = "http://api.pexels.com/v1/";
       private static readonly HttpClient client = new HttpClient();
+      private static Random Random = new Random();
 
       /// <summary>
       /// Creates a new client
@@ -77,6 +79,24 @@ namespace CorePexel
          }
 
          return JsonConvert.DeserializeObject<PhotoPageModel>(body);
+      }
+
+      /// <summary>
+      /// Get a random curated photo
+      /// </summary>
+      /// <returns></returns>
+      public async Task<PhotoModel> GetRandomCuratedPhotos()
+      {
+         var randomPage = Random.Next(1, 999);
+         var url = $"{BaseUrl}curated?per_page={1}&page={randomPage}";
+         var response = await client.GetAsync(url).ConfigureAwait(false);
+         var body = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+         if (!response.IsSuccessStatusCode)
+         {
+            throw new CorePexelException(response.StatusCode, body);
+         }
+
+         return JsonConvert.DeserializeObject<PhotoPageModel>(body).Photos.First();
       }
 
       /// <summary>
