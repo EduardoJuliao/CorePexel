@@ -61,6 +61,25 @@ namespace CorePexel
       }
 
       /// <summary>
+      /// Get curated photos
+      /// </summary>
+      /// <param name="page">page number</param>
+      /// <param name="perPage">items per page</param>
+      /// <returns></returns>
+      public async Task<PhotoPageModel> GetCuratedPhotos(int page = 1, int perPage = 15)
+      {
+         var url = $"{BaseUrl}curated?per_page={perPage}&page={page}";
+         var response = await client.GetAsync(url).ConfigureAwait(false);
+         var body = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+         if (!response.IsSuccessStatusCode)
+         {
+            throw new CorePexelException(response.StatusCode, body);
+         }
+
+         return JsonConvert.DeserializeObject<PhotoPageModel>(body);
+      }
+
+      /// <summary>
       /// Get one photo by it's Id
       /// </summary>
       /// <param name="photoId">Photo Id</param>
