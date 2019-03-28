@@ -16,9 +16,16 @@ namespace CorePexel.Models
       public string Url { get; set; }
 
       /// <summary>
-      /// Photographer pexel url page
+      /// Photographer Name
       /// </summary>
       public string Photographer { get; set; }
+
+      /// <summary>
+      /// Photographer url pexels page
+      /// </summary>
+      /// <value></value>
+      [JsonProperty("photographer_url")]
+      public string PhotographerUrl { get; set; }
 
       /// <summary>
       /// All photos Urls
