@@ -2,6 +2,7 @@ using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 using CorePexel.Models;
+using CorePexel.Models.Video;
 using Newtonsoft.Json;
 
 namespace CorePexel
@@ -76,6 +77,47 @@ namespace CorePexel
          }
 
          return JsonConvert.DeserializeObject<PhotoModel>(body);
+      }
+
+      /// <summary>
+      /// Search for videos based on a query
+      /// </summary>
+      /// <param name="query">search term</param>
+      /// <param name="page">page number</param>
+      /// <param name="perPage">items per page</param>
+      /// <returns></returns>
+      public async Task<VideoPageModel> SearchVideosAsync(string query, int page = 1, int perPage = 15)
+      {
+         var url = $"{BaseUrl}videos/popular?query={Uri.EscapeDataString(query)}&per_page={perPage}&page={page}";
+         var response = await client.GetAsync(url).ConfigureAwait(false);
+
+         var body = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+         if (!response.IsSuccessStatusCode)
+         {
+            throw new CorePexelException(response.StatusCode, body);
+         }
+
+         return JsonConvert.DeserializeObject<VideoPageModel>(body);
+      }
+
+      /// <summary>
+      /// Get the most popular videos
+      /// </summary>
+      /// <param name="page">page number</param>
+      /// <param name="perPage">items per page</param>
+      /// <returns></returns>
+      public async Task<VideoPageModel> GetPopularVideosAsync(int page = 1, int perPage = 15)
+      {
+         var url = $"{BaseUrl}videos/popular?per_page={perPage}&page={page}";
+         var response = await client.GetAsync(url).ConfigureAwait(false);
+
+         var body = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+         if (!response.IsSuccessStatusCode)
+         {
+            throw new CorePexelException(response.StatusCode, body);
+         }
+
+         return JsonConvert.DeserializeObject<VideoPageModel>(body);
       }
    }
 }
