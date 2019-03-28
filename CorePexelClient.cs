@@ -32,6 +32,9 @@ namespace CorePexel
       /// <returns></returns>
       public async Task<PhotoPageModel> SearchAsync(string query, int page = 1, int perPage = 15)
       {
+         if (string.IsNullOrWhiteSpace(query))
+            throw new ArgumentNullException(nameof(query));
+
          var url = $"{BaseUrl}?search={Uri.EscapeDataString(query)}&per_page={perPage}&page={page}";
          var response = await client.GetAsync(url).ConfigureAwait(false);
          var body = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
@@ -104,7 +107,7 @@ namespace CorePexel
       /// </summary>
       /// <param name="photoId">Photo Id</param>
       /// <returns></returns>
-      public async Task<PhotoModel> GetPhotoAsync(string photoId)
+      public async Task<PhotoModel> GetPhotoAsync(int photoId)
       {
          var url = $"{BaseUrl}photos/{photoId}";
          var response = await client.GetAsync(url).ConfigureAwait(false);
@@ -127,6 +130,9 @@ namespace CorePexel
       /// <returns></returns>
       public async Task<VideoPageModel> SearchVideosAsync(string query, int page = 1, int perPage = 15)
       {
+         if (string.IsNullOrWhiteSpace(query))
+            throw new ArgumentNullException(nameof(query));
+
          var url = $"{BaseUrl}videos/popular?query={Uri.EscapeDataString(query)}&per_page={perPage}&page={page}";
          var response = await client.GetAsync(url).ConfigureAwait(false);
 
