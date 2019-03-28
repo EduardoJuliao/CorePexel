@@ -9,11 +9,22 @@ namespace CorePexel.Models.Video
       public int Width { get; set; }
       public int Height { get; set; }
       public string Url { get; set; }
-      public string Image { get; set; }
+      
+      /// <summary>
+      /// Video default image Url
+      /// </summary>
+      /// <value></value>
+      [JsonProperty("image")]
+      public string ImageUrl { get; set; }
+
+      /// <summary>
+      /// Duration in seconds
+      /// </summary>
       public int Duration { get; set; }
       
       [JsonProperty("video_files")]
       public IEnumerable<VideoFilesModel> VideoSources { get; set; }
+
       [JsonProperty("video_pictures")]
       public IEnumerable<VideoPicturesModel> PictureSources { get; set; }
    }
