@@ -27,7 +27,7 @@ namespace CorePexel
       /// <param name="page">page number</param>
       /// <param name="perPage">items per page</param>
       /// <returns></returns>
-      public async Task<PageModel> SearchAsync(string query, int page = 1, int perPage = 15)
+      public async Task<PhotoPageModel> SearchAsync(string query, int page = 1, int perPage = 15)
       {
          var url = $"{BaseUrl}?search={Uri.EscapeDataString(query)}&per_page={perPage}&page={page}";
          var response = await client.GetAsync(url).ConfigureAwait(false);
@@ -37,7 +37,7 @@ namespace CorePexel
             throw new CorePexelException(response.StatusCode, body);
          }
 
-         return JsonConvert.DeserializeObject<PageModel>(body);
+         return JsonConvert.DeserializeObject<PhotoPageModel>(body);
       }
 
       /// <summary>
@@ -46,7 +46,7 @@ namespace CorePexel
       /// <param name="page">page number</param>
       /// <param name="perPage">items per page</param>
       /// <returns></returns>
-      public async Task<PageModel> GetPopularAsync(int page = 1, int perPage = 15)
+      public async Task<PhotoPageModel> GetPopularAsync(int page = 1, int perPage = 15)
       {
          var url = $"{BaseUrl}popular?per_page={perPage}&page={page}";
          var response = await client.GetAsync(url).ConfigureAwait(false);
@@ -56,7 +56,7 @@ namespace CorePexel
             throw new CorePexelException(response.StatusCode, body);
          }
 
-         return JsonConvert.DeserializeObject<PageModel>(body);
+         return JsonConvert.DeserializeObject<PhotoPageModel>(body);
       }
 
       /// <summary>

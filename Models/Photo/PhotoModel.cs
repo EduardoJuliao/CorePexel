@@ -1,3 +1,5 @@
+using Newtonsoft.Json;
+
 namespace CorePexel.Models
 {
     public class PhotoModel
@@ -7,6 +9,8 @@ namespace CorePexel.Models
         public int Height { get; set; }
         public string Url { get; set; }
         public string Photographer { get; set; }
-        public SourceModel Src { get; set; }
+
+        [JsonProperty("src")]
+        public PhotoSourceModel Sources { get; set; }
     }
 }

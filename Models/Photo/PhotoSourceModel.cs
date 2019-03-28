@@ -1,6 +1,6 @@
 namespace CorePexel.Models
 {
-    public class SourceModel
+    public class PhotoSourceModel
     {
         public string Original { get; set; }
         public string Large { get; set; }
