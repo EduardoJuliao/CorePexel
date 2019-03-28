@@ -35,7 +35,7 @@ namespace CorePexel
          if (string.IsNullOrWhiteSpace(query))
             throw new ArgumentNullException(nameof(query));
 
-         var url = $"{BaseUrl}search={Uri.EscapeDataString(query)}?per_page={perPage}&page={page}";
+         var url = $"{BaseUrl}search={Uri.EscapeDataString(query)}&per_page={perPage}&page={page}";
          var response = await client.GetAsync(url).ConfigureAwait(false);
          var body = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
          if (!response.IsSuccessStatusCode)
