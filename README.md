@@ -1,6 +1,6 @@
 # CorePexel
 
-CorePexel is a `dotnet core` wrapper for the [PexelApi](https://www.pexels.com/api/).
+CorePexel is a `dotnet core` wrapper for the [PexelsApi](https://www.pexels.com/api/).
 
 Get it on nuget: https://www.nuget.org/packages/CorePexel/
 
